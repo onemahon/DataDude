@@ -2,6 +2,7 @@ package com.azandria.datadude.examples;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ViewFlipper;
 
@@ -26,12 +27,30 @@ public class LoadingStateActivity extends Activity {
 
         // Set up the LoadingStateHelper so we can change the view's state
         // later, while processing requests.
-        View view = findViewById(R.id.activity_loading_state_Container);
-        LoadingStateViewHolder viewHolder = new LoadingStateViewHolder(view);
+        View view = findViewById(R.id.activity_loading_state_ViewFlipper);
+        LoadingStateViewHolder viewHolder = new LoadingStateViewHolder(view, getContentStateViewId());
         mLoadingStateHelper = new LoadingStateHelper(viewHolder);
 
+        executeRequest(mLoadingStateHelper);
+    }
+
+    /**
+     * A method that you can call to override how the activity retrieves data. The
+     * LoadingStateHelper is passed in only as a utility to change the view's state - it
+     * should not be retained by a child implementation.
+     *
+     * This method is called from inside onResume().
+     * @param loadingStateHelper
+     */
+    protected void executeRequest(LoadingStateHelper loadingStateHelper) {
         startFakeLoadingRequest();
     }
+
+    protected int getContentStateViewId() {
+        return R.layout.view_loading_state_content;
+    }
+
+
 
     /**
      * Simulate requests running by entering a loading state, then leaving it, and repeating.
@@ -92,21 +111,13 @@ public class LoadingStateActivity extends Activity {
         timer.schedule(task, 3000);
     }
 
-
-
-
-
-
-
-
-
     /**
      * It's good practice to keep logic to a minimum in Activities (and Fragments). This kind of
      * a class can be used to extract some convenience logic out of the Activity and into a separate
      * file. It can also be re-used, then, in other kinds of activities that might use the same
      * patterns.
      */
-    private static class LoadingStateHelper {
+    public static class LoadingStateHelper {
 
         private LoadingStateViewHolder mViewHolder;
 
@@ -159,10 +170,14 @@ public class LoadingStateActivity extends Activity {
 
         public int contentViewIndex, errorViewIndex, loadingViewIndex, emptyViewIndex;
 
-        public LoadingStateViewHolder(View view) {
+        public LoadingStateViewHolder(View view, int contentViewId) {
             mViewFlipper = (ViewFlipper) view.findViewById(R.id.activity_loading_state_ViewFlipper);
 
-            contentViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_ContentView));
+            // For now, only the content view changes from activity to activity, but in the future,
+            // this pattern will probably be used to customize the other state views as well.
+            View contentView = LayoutInflater.from(view.getContext()).inflate(contentViewId, mViewFlipper, true);
+
+            contentViewIndex = mViewFlipper.indexOfChild(contentView);
             errorViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_ErrorView));
             loadingViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_LoadingView));
             emptyViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_EmptyView));
