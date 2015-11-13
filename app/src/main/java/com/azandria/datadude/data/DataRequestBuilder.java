@@ -34,12 +34,14 @@ public class DataRequestBuilder<DataType> {
     private long mTimeout;
     private boolean mExpired;
 
-    public DataRequestBuilder() {
+    public DataRequestBuilder(IDataRequestResponse<DataType> responseListener) {
         mFilters = new LinkedList<>();
         mMethods = new LinkedList<>();
 
         mTimeout = DEFAULT_REQUEST_TIMEOUT;
         mExpired = false;
+
+        mDataRequestResponse = responseListener;
     }
 
     public DataRequestBuilder<DataType> addRequestMethod(DataRequestMethod method) {
@@ -60,14 +62,12 @@ public class DataRequestBuilder<DataType> {
         return this;
     }
 
-    public void execute(IDataRequestResponse<DataType> responseListener) {
+    public void execute() {
         if (mExpired) {
             throw new IllegalStateException("You cannot execute a request that has expired");
         }
 
-        mDataRequestResponse = responseListener;
         startTimeoutTimer();
-
         executeTopRequestMethod();
     }
 

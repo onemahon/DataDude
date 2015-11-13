@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_loading_state_Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ViewFlipper
+        android:id="@+id/activity_loading_state_ViewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/activity_loading_state_ContentView"
+            layout="@layout/view_loading_state_content" />
+
+        <include
+            android:id="@+id/activity_loading_state_LoadingView"
+            layout="@layout/view_loading_state_loading" />
+
+        <include
+            android:id="@+id/activity_loading_state_ErrorView"
+            layout="@layout/view_loading_state_error" />
+
+        <include
+            android:id="@+id/activity_loading_state_EmptyView"
+            layout="@layout/view_loading_state_empty" />
+
+    </ViewFlipper>
+
+</LinearLayout>
