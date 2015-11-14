@@ -1,9 +1,8 @@
 package com.azandria.datadude.data;
 
-/**
- * Created by joe on 11/10/15.
- */
 public interface DataRequestFilter {
+
+    // TODO: implement this functionality
 
     /*
     Can create custom implementations that select what kind of objects you want returned in your final list

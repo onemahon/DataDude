@@ -31,6 +31,9 @@ public class LoadingStateActivity extends Activity {
         LoadingStateViewHolder viewHolder = new LoadingStateViewHolder(view, getContentStateViewId());
         mLoadingStateHelper = new LoadingStateHelper(viewHolder);
 
+        // Give any implementations a chance to set up a member variable ViewHolder for just the actual content view
+        setUpContentViewHolder(viewHolder.mViewFlipper.getChildAt(viewHolder.contentViewIndex));
+
         executeRequest(mLoadingStateHelper);
     }
 
@@ -48,6 +51,12 @@ public class LoadingStateActivity extends Activity {
 
     protected int getContentStateViewId() {
         return R.layout.view_loading_state_content;
+    }
+
+    protected void setUpContentViewHolder(View view) {
+        // Don't need to use anything from content view later, in this implementation.
+        // Other implementation may want to use this area to create a ViewHolder that they
+        // can access more easily.
     }
 
 
@@ -176,8 +185,8 @@ public class LoadingStateActivity extends Activity {
             // For now, only the content view changes from activity to activity, but in the future,
             // this pattern will probably be used to customize the other state views as well.
             View contentView = LayoutInflater.from(view.getContext()).inflate(contentViewId, mViewFlipper, true);
+            contentViewIndex = mViewFlipper.getChildCount() - 1; // take the last view that was added to the group
 
-            contentViewIndex = mViewFlipper.indexOfChild(contentView);
             errorViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_ErrorView));
             loadingViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_LoadingView));
             emptyViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_EmptyView));
