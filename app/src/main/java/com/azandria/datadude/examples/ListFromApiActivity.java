@@ -1,5 +1,6 @@
 package com.azandria.datadude.examples;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -9,6 +10,11 @@ import com.azandria.datadude.data.BasicDataRequestResponse;
 import com.azandria.datadude.data.DataRequestBuilder;
 import com.azandria.datadude.data.DataRequestFilter;
 import com.azandria.datadude.data.DataRequestMethod;
+import com.azandria.datadude.data.methods.WebDataRequestMethod;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -47,7 +53,7 @@ public class ListFromApiActivity extends LoadingStateActivity {
         return pBookAdapter;
     }
 
-    //
+    // endregion
 
     // region superclass implementations
 
@@ -119,7 +125,9 @@ public class ListFromApiActivity extends LoadingStateActivity {
     /////////////////////
     // vvvvvv Here below are classes that could be extracted into separate files vvvvvvv
 
-    private static class BookListAPIRequest implements DataRequestMethod<List<Book>> {
+
+    // TODO: make child implementation of DataRequestMethod that executes a web request
+    private static class BookListAPIRequest extends WebDataRequestMethod<List<Book>> {
 
         @Override
         public boolean makeRequestDespiteExistingData() {
@@ -127,22 +135,41 @@ public class ListFromApiActivity extends LoadingStateActivity {
         }
 
         @Override
-        public void doRequest(DataRequestBuilder.RequestMethodListener<List<Book>> listener, Collection<DataRequestFilter> filters) {
-            // TODO: send out actual web request and deal with progress, empty, and error states as well
-
+        public List<Book> getObject(String webResponse) {
             LinkedList<Book> books = new LinkedList<>();
-            for(int i = 0; i < 10; i++) {
-                books.add(new Book());
+            try {
+                JSONArray booksJson = new JSONArray(webResponse);
+                for (int i = 0; i < booksJson.length(); i++) {
+                    String bookTitle = booksJson.getString(i);
+
+                    Book book = new Book(bookTitle);
+
+                    books.add(book);
+                }
+            } catch (JSONException e) {
+                Log.e(getClass().getName(), "JSON error!", e);
             }
 
-            listener.onCompleted(books);
+
+            return books;
         }
     }
 
     private static class Book {
+
+        private String mTitle;
+
+        public Book(String title) {
+            mTitle = title;
+
+            if (mTitle == null) {
+                mTitle = "Title not defined";
+            }
+        }
+
         @Override
         public String toString() {
-            return "A book";
+            return mTitle;
         }
     }
 
