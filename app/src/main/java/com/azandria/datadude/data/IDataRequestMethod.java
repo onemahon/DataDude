@@ -2,7 +2,7 @@ package com.azandria.datadude.data;
 
 import java.util.Collection;
 
-public interface DataRequestMethod<DataType> {
+public interface IDataRequestMethod<DataType> {
 
     /*
     Can apply this class to things like web requests and DB accessors
@@ -23,7 +23,7 @@ public interface DataRequestMethod<DataType> {
      * listener.onCompleted() or listener.onError() when the request method is complete.
      * @param listener
      */
-    void doRequest(DataRequestBuilder.RequestMethodListener<DataType> listener, Collection<DataRequestFilter> filters);
+    void doRequest(DataRequestBuilder.RequestMethodListener<DataType> listener, Collection<IDataRequestFilter> filters);
 
 
 

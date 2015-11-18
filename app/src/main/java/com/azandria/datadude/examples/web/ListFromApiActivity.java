@@ -7,7 +7,7 @@ import android.widget.ListView;
 import com.azandria.datadude.R;
 import com.azandria.datadude.data.BasicDataRequestResponse;
 import com.azandria.datadude.data.DataRequestBuilder;
-import com.azandria.datadude.data.DataRequestMethod;
+import com.azandria.datadude.data.IDataRequestMethod;
 import com.azandria.datadude.examples.LoadingStateActivity;
 
 import java.util.List;
@@ -24,9 +24,9 @@ public class ListFromApiActivity extends LoadingStateActivity {
 
     // Note: it's not *great* practice to put actual logic in member variables, but this
     // is composed here just for ease of writing and interpreting.
-    private BasicDataRequestResponse<List<Book>> bookListResponse = new BasicDataRequestResponse<List<Book>>() {
+    private BasicDataRequestResponse<List<Book>> mBookListResponse = new BasicDataRequestResponse<List<Book>>() {
         @Override
-        public void onCompleted(DataRequestMethod method, List<Book> books) {
+        public void onCompleted(IDataRequestMethod method, List<Book> books) {
             super.onCompleted(method, books);
 
             showContent();
@@ -71,7 +71,7 @@ public class ListFromApiActivity extends LoadingStateActivity {
 
     @Override
     protected void executeRequest() {
-        new DataRequestBuilder<>(bookListResponse)
+        new DataRequestBuilder<>(mBookListResponse)
             .addRequestMethod(new BookListRetrofitRequest())
             .execute();
     }

@@ -15,19 +15,19 @@ public class DataRequestBuilder<DataType> {
      */
     private static final long DEFAULT_REQUEST_TIMEOUT = 10000; // milliseconds
 
-    private List<DataRequestFilter> mFilters;
-    private List<DataRequestMethod> mMethods;
+    private List<IDataRequestFilter> mFilters;
+    private List<IDataRequestMethod> mMethods;
 
     /**
      * A private flag that determines if the requestBuilder has received a successful response
-     * from one of its DataRequestMethod calls. However, remaining DataRequestMethod calls in which
+     * from one of its IDataRequestMethod calls. However, remaining IDataRequestMethod calls in which
      * makeRequestDespitePreviousSuccess() resolves to true shall still run.
      */
     private boolean mRequestHasSucceeded;
 
     /**
      * A local handle to the caller that will receive updates based on what happens with each
-     * DataRequestMethod.
+     * IDataRequestMethod.
      */
     private IDataRequestResponse<DataType> mDataRequestResponse;
 
@@ -44,7 +44,7 @@ public class DataRequestBuilder<DataType> {
         mDataRequestResponse = responseListener;
     }
 
-    public DataRequestBuilder<DataType> addRequestMethod(DataRequestMethod method) {
+    public DataRequestBuilder<DataType> addRequestMethod(IDataRequestMethod method) {
         if (!mExpired) {
             mMethods.add(method);
 
@@ -55,7 +55,7 @@ public class DataRequestBuilder<DataType> {
         return this;
     }
 
-    public DataRequestBuilder<DataType> addFilter(DataRequestFilter filter) {
+    public DataRequestBuilder<DataType> addFilter(IDataRequestFilter filter) {
         if (!mExpired) {
             mFilters.add(filter);
         }
@@ -77,7 +77,7 @@ public class DataRequestBuilder<DataType> {
         }
 
         if (mMethods != null && mMethods.size() > 0) {
-            final DataRequestMethod method = mMethods.remove(0);
+            final IDataRequestMethod method = mMethods.remove(0);
 
             if (method.makeRequestDespitePreviousSuccess() || !mRequestHasSucceeded) {
 
@@ -95,7 +95,7 @@ public class DataRequestBuilder<DataType> {
         mExpired = true;
 
         if (mMethods != null && mMethods.size() > 0 && mDataRequestResponse != null) {
-            for (DataRequestMethod requestMethod : mMethods) {
+            for (IDataRequestMethod requestMethod : mMethods) {
                 mDataRequestResponse.onCancelled(requestMethod);
             }
         }
@@ -112,7 +112,7 @@ public class DataRequestBuilder<DataType> {
         timer.schedule(task, mTimeout);
     }
 
-    private RequestMethodListener<DataType> createRequestMethodListener(final DataRequestMethod method) {
+    private RequestMethodListener<DataType> createRequestMethodListener(final IDataRequestMethod method) {
         return new RequestMethodListener<DataType>() {
             @Override
             public void onCompleted(DataType result) {

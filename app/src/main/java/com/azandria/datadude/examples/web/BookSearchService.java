@@ -6,6 +6,10 @@ import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
+/**
+ * A web request interface defined according to the
+ * Retrofit library.
+ */
 public interface BookSearchService {
     @GET("/api/v1/search/books")
     Call<List<Book>> getSearchResults(

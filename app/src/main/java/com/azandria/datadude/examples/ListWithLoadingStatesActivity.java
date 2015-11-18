@@ -7,8 +7,8 @@ import android.widget.ListView;
 import com.azandria.datadude.R;
 import com.azandria.datadude.data.BasicDataRequestResponse;
 import com.azandria.datadude.data.DataRequestBuilder;
-import com.azandria.datadude.data.DataRequestFilter;
-import com.azandria.datadude.data.DataRequestMethod;
+import com.azandria.datadude.data.IDataRequestFilter;
+import com.azandria.datadude.data.IDataRequestMethod;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,7 +30,7 @@ public class ListWithLoadingStatesActivity extends LoadingStateActivity {
     // is composed here just for ease of writing and interpreting.
     private BasicDataRequestResponse<List<Book>> bookListResponse = new BasicDataRequestResponse<List<Book>>() {
         @Override
-        public void onCompleted(DataRequestMethod method, final List<Book> books) {
+        public void onCompleted(IDataRequestMethod method, final List<Book> books) {
             super.onCompleted(method, books);
 
             runOnUiThread(new Runnable() {
@@ -51,7 +51,7 @@ public class ListWithLoadingStatesActivity extends LoadingStateActivity {
         }
 
         @Override
-        public void onError(DataRequestMethod method, int errorCode) {
+        public void onError(IDataRequestMethod method, int errorCode) {
             super.onError(method, errorCode);
             showError();
             scheduleAnotherStubRequest();
@@ -130,7 +130,7 @@ public class ListWithLoadingStatesActivity extends LoadingStateActivity {
         timer.schedule(task, WAIT_PERIOD_BETWEEN_REQUESTS);
     }
 
-    private static class StubbedBookListRequest implements DataRequestMethod<List<Book>> {
+    private static class StubbedBookListRequest implements IDataRequestMethod<List<Book>> {
 
         private static final int REQUEST_LENGTH = 1000;
 
@@ -147,7 +147,7 @@ public class ListWithLoadingStatesActivity extends LoadingStateActivity {
         }
 
         @Override
-        public void doRequest(final DataRequestBuilder.RequestMethodListener<List<Book>> listener, Collection<DataRequestFilter> filters) {
+        public void doRequest(final DataRequestBuilder.RequestMethodListener<List<Book>> listener, Collection<IDataRequestFilter> filters) {
             // Take a couple seconds, as though actually calling out to API
             TimerTask task = new TimerTask() {
                 @Override

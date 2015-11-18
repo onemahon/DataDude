@@ -1,13 +1,13 @@
 package com.azandria.datadude.examples.web;
 
-import com.azandria.datadude.data.methods.WebDataRequestMethod;
+import com.azandria.datadude.data.methods.RetrofitDataRequestMethod;
 
 import java.util.List;
 
 import retrofit.Call;
 import retrofit.Retrofit;
 
-public class BookListRetrofitRequest extends WebDataRequestMethod<List<Book>> {
+public class BookListRetrofitRequest extends RetrofitDataRequestMethod<List<Book>> {
 
     @Override
     public boolean makeRequestDespitePreviousSuccess() {

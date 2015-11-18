@@ -1,6 +1,6 @@
 package com.azandria.datadude.data;
 
-public interface DataRequestFilter {
+public interface IDataRequestFilter {
 
     // TODO: implement this functionality
 
