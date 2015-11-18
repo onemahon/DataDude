@@ -13,7 +13,7 @@ public class DataRequestBuilder<DataType> {
      * requests that will take under 500 millis, those quick requests will never have a chance to
      * run.
      */
-    private static final long DEFAULT_REQUEST_TIMEOUT = 3000; // milliseconds
+    private static final long DEFAULT_REQUEST_TIMEOUT = 10000; // milliseconds
 
     private List<DataRequestFilter> mFilters;
     private List<DataRequestMethod> mMethods;
@@ -21,7 +21,7 @@ public class DataRequestBuilder<DataType> {
     /**
      * A private flag that determines if the requestBuilder has received a successful response
      * from one of its DataRequestMethod calls. However, remaining DataRequestMethod calls in which
-     * makeRequestDespiteExistingData() resolves to true shall still run.
+     * makeRequestDespitePreviousSuccess() resolves to true shall still run.
      */
     private boolean mRequestHasSucceeded;
 
@@ -79,7 +79,7 @@ public class DataRequestBuilder<DataType> {
         if (mMethods != null && mMethods.size() > 0) {
             final DataRequestMethod method = mMethods.remove(0);
 
-            if (method.makeRequestDespiteExistingData() || !mRequestHasSucceeded) {
+            if (method.makeRequestDespitePreviousSuccess() || !mRequestHasSucceeded) {
 
                 if (mDataRequestResponse != null) {
                     mDataRequestResponse.onBegun(method);

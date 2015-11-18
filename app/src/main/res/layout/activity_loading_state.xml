@@ -7,10 +7,6 @@
     <!-- TODO: child views should really be ViewStubs and inflated only as needed -->
 
     <include
-        android:id="@+id/activity_loading_state_ContentView"
-        layout="@layout/view_loading_state_content" />
-
-    <include
         android:id="@+id/activity_loading_state_LoadingView"
         layout="@layout/view_loading_state_loading" />
 

@@ -76,7 +76,7 @@ public class SimpleRequestActivity extends ActionBarActivity {
     private static class BookRequestMethod implements DataRequestMethod<String> {
 
         @Override
-        public boolean makeRequestDespiteExistingData() {
+        public boolean makeRequestDespitePreviousSuccess() {
             return true;
         }
 

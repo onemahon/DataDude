@@ -14,7 +14,7 @@ public interface DataRequestMethod<DataType> {
     /**
      * @return true if you want to ensure the request gets made, regardless of
      */
-    boolean makeRequestDespiteExistingData();
+    boolean makeRequestDespitePreviousSuccess();
 
 
     /**

@@ -30,7 +30,6 @@ public abstract class WebDataRequestMethod<DataType> implements DataRequestMetho
             @Override
             public void onResponse(Response<DataType> response, Retrofit retrofit) {
                 DataType result = response.body();
-
                 listener.onCompleted(result);
             }
 

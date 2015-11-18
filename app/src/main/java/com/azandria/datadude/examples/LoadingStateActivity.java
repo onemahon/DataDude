@@ -15,6 +15,8 @@ public class LoadingStateActivity extends Activity {
 
     private LoadingStateHelper mLoadingStateHelper;
 
+    // region Lifecycle
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,18 +36,20 @@ public class LoadingStateActivity extends Activity {
         // Give any implementations a chance to set up a member variable ViewHolder for just the actual content view
         setUpContentViewHolder(viewHolder.mViewFlipper.getChildAt(viewHolder.contentViewIndex));
 
-        executeRequest(mLoadingStateHelper);
+        executeRequest();
     }
 
+    // endregion
+
+    // region Protected Methods (available to implementing classes)
+
     /**
-     * A method that you can call to override how the activity retrieves data. The
-     * LoadingStateHelper is passed in only as a utility to change the view's state - it
-     * should not be retained by a child implementation.
+     * A method that you can call to override how the activity retrieves data.
      *
      * This method is called from inside onResume().
-     * @param loadingStateHelper
      */
-    protected void executeRequest(LoadingStateHelper loadingStateHelper) {
+    protected void executeRequest() {
+        showLoading();
         startFakeLoadingRequest();
     }
 
@@ -59,7 +63,53 @@ public class LoadingStateActivity extends Activity {
         // can access more easily.
     }
 
+    protected void showContent() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mLoadingStateHelper != null) {
+                    mLoadingStateHelper.showContent();
+                }
+            }
+        });
+    }
 
+    protected void showLoading() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mLoadingStateHelper != null) {
+                    mLoadingStateHelper.showLoading();
+                }
+            }
+        });
+    }
+
+    protected void showError() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mLoadingStateHelper != null) {
+                    mLoadingStateHelper.showError();
+                }
+            }
+        });
+    }
+
+    protected void showEmpty() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mLoadingStateHelper != null) {
+                    mLoadingStateHelper.showEmpty();
+                }
+            }
+        });
+    }
+
+    // endregion
+
+    // region Throwaway Code
 
     /**
      * Simulate requests running by entering a loading state, then leaving it, and repeating.
@@ -68,7 +118,7 @@ public class LoadingStateActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mLoadingStateHelper.showLoading();
+                showLoading();
             }
         });
 
@@ -96,15 +146,15 @@ public class LoadingStateActivity extends Activity {
                 switch (fakeResultTurn) {
                     case 0:
                         fakeResultTurn++;
-                        mLoadingStateHelper.showContent();
+                        showContent();
                         break;
                     case 1:
                         fakeResultTurn++;
-                        mLoadingStateHelper.showEmpty();
+                        showEmpty();
                         break;
                     case 2:
                         fakeResultTurn = 0;
-                        mLoadingStateHelper.showError();
+                        showError();
                         break;
                 }
             }
@@ -119,6 +169,8 @@ public class LoadingStateActivity extends Activity {
         Timer timer = new Timer();
         timer.schedule(task, 3000);
     }
+
+    // endregion
 
     /**
      * It's good practice to keep logic to a minimum in Activities (and Fragments). This kind of
@@ -184,7 +236,7 @@ public class LoadingStateActivity extends Activity {
 
             // For now, only the content view changes from activity to activity, but in the future,
             // this pattern will probably be used to customize the other state views as well.
-            View contentView = LayoutInflater.from(view.getContext()).inflate(contentViewId, mViewFlipper, true);
+            LayoutInflater.from(view.getContext()).inflate(contentViewId, mViewFlipper, true);
             contentViewIndex = mViewFlipper.getChildCount() - 1; // take the last view that was added to the group
 
             errorViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_ErrorView));
@@ -196,6 +248,4 @@ public class LoadingStateActivity extends Activity {
             mViewFlipper.setDisplayedChild(index);
         }
     }
-
-
 }
