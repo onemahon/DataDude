@@ -1,6 +1,5 @@
 package com.azandria.datadude.examples;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -8,17 +7,16 @@ import android.widget.ListView;
 import com.azandria.datadude.R;
 import com.azandria.datadude.data.BasicDataRequestResponse;
 import com.azandria.datadude.data.DataRequestBuilder;
-import com.azandria.datadude.data.DataRequestFilter;
 import com.azandria.datadude.data.DataRequestMethod;
 import com.azandria.datadude.data.methods.WebDataRequestMethod;
+import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
+
+import retrofit.Call;
+import retrofit.Retrofit;
+import retrofit.http.GET;
+import retrofit.http.Query;
 
 public class ListFromApiActivity extends LoadingStateActivity {
 
@@ -125,9 +123,14 @@ public class ListFromApiActivity extends LoadingStateActivity {
     /////////////////////
     // vvvvvv Here below are classes that could be extracted into separate files vvvvvvv
 
+    public interface BookSearchService {
+        @GET("/api/v1/search/books")
+        Call<List<Book>> getSearchResults(
+            @Query("search_term") String searchQuery
+        );
+    }
 
-    // TODO: make child implementation of DataRequestMethod that executes a web request
-    private static class BookListAPIRequest extends WebDataRequestMethod<List<Book>> {
+    public static class BookListAPIRequest extends WebDataRequestMethod<List<Book>> {
 
         @Override
         public boolean makeRequestDespiteExistingData() {
@@ -135,44 +138,24 @@ public class ListFromApiActivity extends LoadingStateActivity {
         }
 
         @Override
-        public List<Book> getObject(String webResponse) {
-            LinkedList<Book> books = new LinkedList<>();
-            try {
-                JSONArray booksJson = new JSONArray(webResponse);
-                for (int i = 0; i < booksJson.length(); i++) {
-                    String bookTitle = booksJson.getString(i);
+        public String getBaseUrl() {
+            return "http://azandria.com/api/v1/search";
+        }
 
-                    Book book = new Book(bookTitle);
-
-                    books.add(book);
-                }
-            } catch (JSONException e) {
-                Log.e(getClass().getName(), "JSON error!", e);
-            }
-
-
-            return books;
+        @Override
+        public Call<List<Book>> createRetrofitRequest(Retrofit retrofit) {
+            return retrofit.create(BookSearchService.class).getSearchResults("brave new world");
         }
     }
 
-    private static class Book {
+    public static class Book {
 
+        @SerializedName("title")
         private String mTitle;
-
-        public Book(String title) {
-            mTitle = title;
-
-            if (mTitle == null) {
-                mTitle = "Title not defined";
-            }
-        }
 
         @Override
         public String toString() {
             return mTitle;
         }
     }
-
-
-
 }
