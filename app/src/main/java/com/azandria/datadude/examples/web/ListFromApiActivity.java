@@ -8,11 +8,11 @@ import com.azandria.datadude.R;
 import com.azandria.datadude.data.BasicDataRequestResponse;
 import com.azandria.datadude.data.DataRequestBuilder;
 import com.azandria.datadude.data.IDataRequestMethod;
-import com.azandria.datadude.examples.LoadingStateActivity;
+import com.azandria.datadude.examples.LoadingStatesActivity;
 
 import java.util.List;
 
-public class ListFromApiActivity extends LoadingStateActivity {
+public class ListFromApiActivity extends LoadingStatesActivity {
 
     // region member variables
 

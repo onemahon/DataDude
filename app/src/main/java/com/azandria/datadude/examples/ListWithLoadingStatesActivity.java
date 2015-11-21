@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ListWithLoadingStatesActivity extends LoadingStateActivity {
+public class ListWithLoadingStatesActivity extends LoadingStatesActivity {
 
     // region member variables
 

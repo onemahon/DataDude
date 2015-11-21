@@ -11,16 +11,16 @@ import com.azandria.datadude.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LoadingStateActivity extends Activity {
+public class LoadingStatesActivity extends Activity {
 
-    private LoadingStateHelper mLoadingStateHelper;
+    private LoadingStateHelper mLoadingStatesHelper;
 
     // region Lifecycle
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading_state);
+        setContentView(R.layout.activity_loading_states);
     }
 
     @Override
@@ -29,12 +29,16 @@ public class LoadingStateActivity extends Activity {
 
         // Set up the LoadingStateHelper so we can change the view's state
         // later, while processing requests.
-        View view = findViewById(R.id.activity_loading_state_ViewFlipper);
-        LoadingStateViewHolder viewHolder = new LoadingStateViewHolder(view, getContentStateViewId());
-        mLoadingStateHelper = new LoadingStateHelper(viewHolder);
+        View view = findViewById(R.id.activity_loading_states_ViewFlipper);
+        LoadingStatesViewHolder viewHolder = new LoadingStatesViewHolder(view, getContentStateViewId(),
+                getEmptyStateViewId(), getErrorStateViewId(), getLoadingStateViewId());
+        mLoadingStatesHelper = new LoadingStateHelper(viewHolder);
 
         // Give any implementations a chance to set up a member variable ViewHolder for just the actual content view
         setUpContentViewHolder(viewHolder.mViewFlipper.getChildAt(viewHolder.contentViewIndex));
+        setUpEmptyViewHolder(viewHolder.mViewFlipper.getChildAt(viewHolder.emptyViewIndex));
+        setUpErrorViewHolder(viewHolder.mViewFlipper.getChildAt(viewHolder.errorViewIndex));
+        setUpLoadingViewHolder(viewHolder.mViewFlipper.getChildAt(viewHolder.loadingViewIndex));
 
         executeRequest();
     }
@@ -57,18 +61,31 @@ public class LoadingStateActivity extends Activity {
         return R.layout.view_loading_state_content;
     }
 
-    protected void setUpContentViewHolder(View view) {
-        // Don't need to use anything from content view later, in this implementation.
-        // Other implementation may want to use this area to create a ViewHolder that they
-        // can access more easily.
+    protected int getEmptyStateViewId() {
+        return R.layout.view_loading_state_empty;
     }
+
+    protected int getLoadingStateViewId() {
+        return R.layout.view_loading_state_loading;
+    }
+
+    protected int getErrorStateViewId() {
+        return R.layout.view_loading_state_error;
+    }
+
+    // This class has no need for access into any of these state views, but its children might.
+    // Give them a chance to create a ViewHolder that they can access more easily later.
+    protected void setUpContentViewHolder(View view) { }
+    protected void setUpEmptyViewHolder(View view) { }
+    protected void setUpErrorViewHolder(View view) { }
+    protected void setUpLoadingViewHolder(View view) { }
 
     protected void showContent() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mLoadingStateHelper != null) {
-                    mLoadingStateHelper.showContent();
+                if (mLoadingStatesHelper != null) {
+                    mLoadingStatesHelper.showContent();
                 }
             }
         });
@@ -78,8 +95,8 @@ public class LoadingStateActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mLoadingStateHelper != null) {
-                    mLoadingStateHelper.showLoading();
+                if (mLoadingStatesHelper != null) {
+                    mLoadingStatesHelper.showLoading();
                 }
             }
         });
@@ -89,8 +106,8 @@ public class LoadingStateActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mLoadingStateHelper != null) {
-                    mLoadingStateHelper.showError();
+                if (mLoadingStatesHelper != null) {
+                    mLoadingStatesHelper.showError();
                 }
             }
         });
@@ -100,8 +117,8 @@ public class LoadingStateActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mLoadingStateHelper != null) {
-                    mLoadingStateHelper.showEmpty();
+                if (mLoadingStatesHelper != null) {
+                    mLoadingStatesHelper.showEmpty();
                 }
             }
         });
@@ -180,9 +197,9 @@ public class LoadingStateActivity extends Activity {
      */
     public static class LoadingStateHelper {
 
-        private LoadingStateViewHolder mViewHolder;
+        private LoadingStatesViewHolder mViewHolder;
 
-        public LoadingStateHelper(LoadingStateViewHolder viewHolder) {
+        public LoadingStateHelper(LoadingStatesViewHolder viewHolder) {
             mViewHolder = viewHolder;
         }
 
@@ -226,22 +243,26 @@ public class LoadingStateActivity extends Activity {
      * references are cleaned up at the same time - no need to worry about forgetting to attach
      * and destroy view references in various different lifecycle methods.
      */
-    private static class LoadingStateViewHolder {
+    private static class LoadingStatesViewHolder {
         private ViewFlipper mViewFlipper;
 
         public int contentViewIndex, errorViewIndex, loadingViewIndex, emptyViewIndex;
 
-        public LoadingStateViewHolder(View view, int contentViewId) {
-            mViewFlipper = (ViewFlipper) view.findViewById(R.id.activity_loading_state_ViewFlipper);
+        public LoadingStatesViewHolder(View view, int contentViewId, int emptyViewId,
+                                       int errorViewId, int loadingViewId) {
 
-            // For now, only the content view changes from activity to activity, but in the future,
-            // this pattern will probably be used to customize the other state views as well.
+            mViewFlipper = (ViewFlipper) view.findViewById(R.id.activity_loading_states_ViewFlipper);
+
+            // TODO: child views should really be ViewStubs and inflated only as needed
+
+            LayoutInflater.from(view.getContext()).inflate(loadingViewId, mViewFlipper, true);
+            loadingViewIndex = mViewFlipper.getChildCount() - 1; // take the last view that was added to the group
+            LayoutInflater.from(view.getContext()).inflate(emptyViewId, mViewFlipper, true);
+            emptyViewIndex = mViewFlipper.getChildCount() - 1; // take the last view that was added to the group
+            LayoutInflater.from(view.getContext()).inflate(errorViewId, mViewFlipper, true);
+            errorViewIndex = mViewFlipper.getChildCount() - 1; // take the last view that was added to the group
             LayoutInflater.from(view.getContext()).inflate(contentViewId, mViewFlipper, true);
             contentViewIndex = mViewFlipper.getChildCount() - 1; // take the last view that was added to the group
-
-            errorViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_ErrorView));
-            loadingViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_LoadingView));
-            emptyViewIndex = mViewFlipper.indexOfChild(view.findViewById(R.id.activity_loading_state_EmptyView));
         }
 
         public void flipView(int index) {
