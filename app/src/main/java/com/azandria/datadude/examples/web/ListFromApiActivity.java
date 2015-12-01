@@ -72,7 +72,7 @@ public class ListFromApiActivity extends LoadingStatesActivity {
     @Override
     protected void executeRequest() {
         new DataRequestBuilder<>(mBookListResponse)
-            .addRequestMethod(null) // TODO this will break until we replace retrofit with a different web request library
+            .addRequestMethod(new BookListRequestMethod())
             .execute();
     }
 
