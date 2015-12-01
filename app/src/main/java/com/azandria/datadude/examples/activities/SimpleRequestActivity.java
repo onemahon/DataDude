@@ -1,4 +1,4 @@
-package com.azandria.datadude.examples;
+package com.azandria.datadude.examples.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

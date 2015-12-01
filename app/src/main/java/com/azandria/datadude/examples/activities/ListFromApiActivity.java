@@ -1,4 +1,4 @@
-package com.azandria.datadude.examples.web;
+package com.azandria.datadude.examples.activities;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -8,7 +8,9 @@ import com.azandria.datadude.R;
 import com.azandria.datadude.data.BasicDataRequestResponse;
 import com.azandria.datadude.data.DataRequestBuilder;
 import com.azandria.datadude.data.IDataRequestMethod;
-import com.azandria.datadude.examples.LoadingStatesActivity;
+import com.azandria.datadude.examples.books.Book;
+import com.azandria.datadude.examples.books.BookListAPIRequestMethod;
+import com.azandria.datadude.examples.books.BookListMemoryRequestMethod;
 
 import java.util.List;
 
@@ -26,13 +28,18 @@ public class ListFromApiActivity extends LoadingStatesActivity {
     // is composed here just for ease of writing and interpreting.
     private BasicDataRequestResponse<List<Book>> mBookListResponse = new BasicDataRequestResponse<List<Book>>() {
         @Override
-        public void onCompleted(IDataRequestMethod method, List<Book> books) {
+        public void onCompleted(IDataRequestMethod method, final List<Book> books) {
             super.onCompleted(method, books);
 
             showContent();
 
-            getBookAdapter().clear();
-            getBookAdapter().addAll(books);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    getBookAdapter().clear();
+                    getBookAdapter().addAll(books);
+                }
+            });
         }
     };
 
@@ -71,8 +78,12 @@ public class ListFromApiActivity extends LoadingStatesActivity {
 
     @Override
     protected void executeRequest() {
+
+        String searchString = "Brave New World";
+
         new DataRequestBuilder<>(mBookListResponse)
-            .addRequestMethod(new BookListRequestMethod())
+            .addRequestMethod(new BookListMemoryRequestMethod(searchString))
+            .addRequestMethod(new BookListAPIRequestMethod(searchString))
             .execute();
     }
 

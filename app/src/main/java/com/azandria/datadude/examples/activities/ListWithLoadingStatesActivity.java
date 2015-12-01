@@ -1,4 +1,4 @@
-package com.azandria.datadude.examples;
+package com.azandria.datadude.examples.activities;
 
 import android.view.View;
 import android.widget.ArrayAdapter;

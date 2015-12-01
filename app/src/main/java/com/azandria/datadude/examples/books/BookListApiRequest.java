@@ -1,5 +1,6 @@
-package com.azandria.datadude.examples.web;
+package com.azandria.datadude.examples.books;
 
+import com.azandria.datadude.data.DataObjectManager;
 import com.raizlabs.webservicemanager.HttpMethod;
 import com.raizlabs.webservicemanager.requests.BaseWebServiceRequest;
 import com.raizlabs.webservicemanager.requests.RequestBuilder;
@@ -47,7 +48,18 @@ public class BookListApiRequest extends BaseWebServiceRequest<List<Book>> {
         try {
             for (int i = 0; i < json.length(); i++) {
                 JSONObject bookJson = json.getJSONObject(i);
-                Book book = new Book(bookJson.getString("title"));
+
+                final String title = bookJson.getString("title");
+
+                Book book = BookManager.get().get(title, new DataObjectManager.FindDelegate<Book>() {
+                    @Override
+                    public Book need() {
+                        // This is where the object is created, in case
+                        // it's not in the cache.
+                        return new Book(title);
+                    }
+                });
+
                 books.add(book);
             }
         } catch (JSONException e) {
