@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_loading_states_ViewFlipper"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!-- TODO: child views should really be ViewStubs and inflated only as needed -->
-
-</ViewFlipper>

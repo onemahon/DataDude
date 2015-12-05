@@ -1,4 +1,4 @@
-package com.azandria.datadude.data;
+package com.azandria.datadude.utils;
 
 import com.raizlabs.webservicemanager.webservicemanager.WebServiceManager;
 

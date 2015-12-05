@@ -10,16 +10,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".examples.activities.ListFromApiActivity">
+        <activity android:name="com.azandria.bookSearch.BookSearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".examples.activities.SimpleRequestActivity" />
-        <activity android:name=".examples.activities.ListWithLoadingStatesActivity" />
-        <activity android:name=".examples.activities.LoadingStatesActivity" />
     </application>
 
 </manifest>

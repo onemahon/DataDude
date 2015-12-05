@@ -1,4 +1,4 @@
-package com.azandria.datadude.data;
+package com.azandria.datadude.utils;
 
 public interface IDataRequestResponse<Data> {
 

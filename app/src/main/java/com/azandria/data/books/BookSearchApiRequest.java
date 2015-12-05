@@ -1,6 +1,6 @@
-package com.azandria.datadude.examples.books;
+package com.azandria.data.books;
 
-import com.azandria.datadude.data.DataObjectManager;
+import com.azandria.datadude.utils.DataObjectManager;
 import com.raizlabs.webservicemanager.HttpMethod;
 import com.raizlabs.webservicemanager.requests.BaseWebServiceRequest;
 import com.raizlabs.webservicemanager.requests.RequestBuilder;
@@ -15,11 +15,11 @@ import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BookListApiRequest extends BaseWebServiceRequest<List<Book>> {
+public class BookSearchApiRequest extends BaseWebServiceRequest<List<Book>> {
 
     private String mSearchString;
 
-    public BookListApiRequest(String searchString) {
+    public BookSearchApiRequest(String searchString) {
         mSearchString = searchString;
     }
 

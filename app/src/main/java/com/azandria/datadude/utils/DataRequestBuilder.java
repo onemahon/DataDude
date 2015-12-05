@@ -1,4 +1,4 @@
-package com.azandria.datadude.data;
+package com.azandria.datadude.utils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +46,11 @@ public class DataRequestBuilder<DataType> {
 
     public DataRequestBuilder<DataType> addRequestMethod(IDataRequestMethod method) {
         if (!mExpired) {
+            for (IDataRequestMethod queuedMethod : mMethods) {
+                queuedMethod.setIsLastInQueue(false);
+            }
+
+            method.setIsLastInQueue(true);
             mMethods.add(method);
 
             if (mDataRequestResponse != null) {

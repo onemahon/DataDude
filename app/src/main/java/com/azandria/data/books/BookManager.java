@@ -1,6 +1,6 @@
-package com.azandria.datadude.examples.books;
+package com.azandria.data.books;
 
-import com.azandria.datadude.data.DataObjectManager;
+import com.azandria.datadude.utils.DataObjectManager;
 
 /**
  * A place for Books to be kept around and fetched at

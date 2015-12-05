@@ -1,4 +1,4 @@
-package com.azandria.datadude.data;
+package com.azandria.datadude.utils;
 
 public class BasicDataRequestResponse<DataType> implements IDataRequestResponse<DataType> {
 

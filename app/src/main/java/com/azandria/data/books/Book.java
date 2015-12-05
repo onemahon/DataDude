@@ -1,4 +1,4 @@
-package com.azandria.datadude.examples.books;
+package com.azandria.data.books;
 
 public class Book {
     private String mTitle;
