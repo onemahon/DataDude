@@ -12,7 +12,6 @@ import java.util.List;
 public class BookSearchMemoryRequestMethod implements IDataRequestMethod<List<Book>> {
 
     private String mSearchString;
-    private boolean mIsLastInQueue;
 
     public BookSearchMemoryRequestMethod(String searchString) {
         mSearchString = searchString;
@@ -35,15 +34,5 @@ public class BookSearchMemoryRequestMethod implements IDataRequestMethod<List<Bo
 
             listener.onFailed(-1);
         }
-    }
-
-    @Override
-    public boolean isLastInQueue() {
-        return mIsLastInQueue;
-    }
-
-    @Override
-    public void setIsLastInQueue(boolean isLast) {
-        mIsLastInQueue = isLast;
     }
 }

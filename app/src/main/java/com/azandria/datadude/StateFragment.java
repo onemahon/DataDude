@@ -142,7 +142,7 @@ public class StateFragment extends Fragment implements StateChanger {
 
     @Override
     public void showError(IDataRequestMethod method) {
-        if (method instanceof BookSearchAPIRequestMethod && method.isLastInQueue()) {
+        if (method instanceof BookSearchAPIRequestMethod) {
             ThreadingUtils.runOnUIThread(new Runnable() {
                 @Override
                 public void run() {
@@ -235,16 +235,12 @@ public class StateFragment extends Fragment implements StateChanger {
 
         @Override
         public void onCompleted(IDataRequestMethod method, Type type) {
-            if (method.isLastInQueue()) {
-                getStateChanger().showContent();
-            }
+            getStateChanger().showContent();
         }
 
         @Override
         public void onError(IDataRequestMethod method, int errorCode) {
-            if (method.isLastInQueue()) {
-                getStateChanger().showError(method);
-            }
+            getStateChanger().showError(method);
         }
 
         @Override

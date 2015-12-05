@@ -46,11 +46,6 @@ public class DataRequestBuilder<DataType> {
 
     public DataRequestBuilder<DataType> addRequestMethod(IDataRequestMethod method) {
         if (!mExpired) {
-            for (IDataRequestMethod queuedMethod : mMethods) {
-                queuedMethod.setIsLastInQueue(false);
-            }
-
-            method.setIsLastInQueue(true);
             mMethods.add(method);
 
             if (mDataRequestResponse != null) {

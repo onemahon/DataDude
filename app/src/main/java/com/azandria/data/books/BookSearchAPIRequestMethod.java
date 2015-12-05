@@ -16,20 +16,9 @@ import java.util.List;
 public class BookSearchAPIRequestMethod implements IDataRequestMethod<List<Book>> {
 
     private String mSearchString;
-    private boolean mIsLastInQueue;
 
     public BookSearchAPIRequestMethod(String searchString) {
         mSearchString = searchString;
-    }
-
-    @Override
-    public boolean isLastInQueue() {
-        return mIsLastInQueue;
-    }
-
-    @Override
-    public void setIsLastInQueue(boolean isLast) {
-        mIsLastInQueue = isLast;
     }
 
     @Override
