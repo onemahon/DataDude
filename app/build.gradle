@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 repositories {
-    maven { url "https://github.com/onemahon/AndroidWebServiceManagerDeploys/raw/master" }
+    maven { url "https://github.com/onemahon/AndroidWebServiceManagerDeploys/raw/rz-android-webservicemanager-deploys" }
 }
 
 android {
