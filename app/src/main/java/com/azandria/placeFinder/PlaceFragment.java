@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.azandria.data.places.Place;
 import com.azandria.data.places.PlaceApiRequestMethod;
 import com.azandria.data.places.PlaceMemoryRequestMethod;
-import com.azandria.data.places.PlaceStubbedApiRequestMethod;
 import com.azandria.data.places.placeInfo.TripAdvisorApiRequestMethod;
 import com.azandria.data.places.placeInfo.TripAdvisorInformation;
 import com.azandria.data.places.placeInfo.WikipediaApiRequestMethod;
@@ -116,13 +115,13 @@ public class PlaceFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        randomPlaceId = (int) (Math.random() * 3) + 1;  // TODO random item index (hard-coded, for testing)
+        randomPlaceId = (int) (Math.random() * 4) + 1;  // TODO random item index (hard-coded, for testing)
 
         // TODO delegate this into a button (e.g. "refresh" or "try new place")
         new DataRequestBuilder<>(mPlaceResponseListener)
                 .addRequestMethod(new PlaceMemoryRequestMethod(randomPlaceId))
                 .addRequestMethod(new PlaceApiRequestMethod(randomPlaceId))
-                .addRequestMethod(new PlaceStubbedApiRequestMethod(randomPlaceId))
+//                .addRequestMethod(new PlaceStubbedApiRequestMethod(randomPlaceId))
                 .execute();
 
         addClickListeners();

@@ -28,7 +28,7 @@ public class PlaceApiRequestMethod implements IDataRequestMethod<Place> {
         BasicWebServiceManager.get().doRequestInBackground(new PlaceApiRequest(mId), new WebServiceRequestListener<Place>() {
             @Override
             public void onRequestComplete(WebServiceManager webServiceManager, ResultInfo<Place> resultInfo) {
-                if (resultInfo.isStatusOK()) {
+                if (resultInfo != null && resultInfo.isStatusOK()) {
                     listener.onCompleted(resultInfo.getResult());
                     PlaceManager.get().store(mId, resultInfo.getResult());
                 } else {

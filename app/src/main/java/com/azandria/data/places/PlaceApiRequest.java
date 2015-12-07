@@ -9,6 +9,8 @@ import org.json.JSONArray;
 
 public class PlaceApiRequest extends BaseWebServiceRequest<Place> {
 
+    private static final String HOSTED_PLACE_JSON_URL = "https://raw.githubusercontent.com/onemahon/Hosted/places-api/places.json";
+
     private int mId;
 
     public PlaceApiRequest(int id) {
@@ -18,7 +20,7 @@ public class PlaceApiRequest extends BaseWebServiceRequest<Place> {
     @Override
     protected RequestBuilder getRequestBuilder() {
         // TODO correct URL & testing
-        return new RequestBuilder(HttpMethod.Get, "http://raw.github.com/something");
+        return new RequestBuilder(HttpMethod.Get, HOSTED_PLACE_JSON_URL);
     }
 
     @Override
