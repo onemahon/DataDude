@@ -19,6 +19,7 @@ import android.widget.ViewFlipper;
 import com.azandria.data.books.Book;
 import com.azandria.data.books.BookSearchAPIRequestMethod;
 import com.azandria.data.books.BookSearchMemoryRequestMethod;
+import com.azandria.data.books.BookSearchStubbedApiRequestMethod;
 import com.azandria.datadude.R;
 import com.azandria.datadude.utils.BasicDataRequestResponse;
 import com.azandria.datadude.utils.DataRequestBuilder;
@@ -131,7 +132,14 @@ public class BookSearchFragment extends Fragment {
 
     private void showError(IDataRequestMethod method) {
         setLoading(false);
-        Toast.makeText(getActivity(), "Error retrieving something, sorry!", Toast.LENGTH_SHORT).show();
+
+        ThreadingUtils.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), "Error retrieving something, sorry!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         showEmpty();
     }
 
@@ -170,7 +178,8 @@ public class BookSearchFragment extends Fragment {
 
             new DataRequestBuilder<>(mBookSearchResponseListener)
                     .addRequestMethod(new BookSearchMemoryRequestMethod(searchString))
-                    .addRequestMethod(new BookSearchAPIRequestMethod(searchString))
+                    .addRequestMethod(new BookSearchStubbedApiRequestMethod(searchString))
+//                    .addRequestMethod(new BookSearchAPIRequestMethod(searchString))
                     .execute();
         }
     }
