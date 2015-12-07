@@ -5,12 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-public abstract class StateActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     ///////////
     // region Constants
 
-    private final static String ROOT_FRAGMENT_TAG = "StateActivity:ROOT_FRAGMENT_TAG";
+    private final static String ROOT_FRAGMENT_TAG = "BaseActivity:ROOT_FRAGMENT_TAG";
 
     // endregion
     ///////////

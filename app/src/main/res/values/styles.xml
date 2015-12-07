@@ -1,8 +1,27 @@
-<resources>
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="PlaceCard" parent="CardView">
+        <item name="cardBackgroundColor">#cecece</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="android:layout_height">130dp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="PlaceCardIcon">
+        <item name="android:background">@drawable/bg_icon_blue</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 
 </resources>

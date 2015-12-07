@@ -2,9 +2,9 @@ package com.azandria.bookSearch;
 
 import android.support.v4.app.Fragment;
 
-import com.azandria.datadude.StateActivity;
+import com.azandria.datadude.BaseActivity;
 
-public class BookSearchActivity extends StateActivity {
+public class BookSearchActivity extends BaseActivity {
 
     ///////////
     // region Abstract Method Implementations

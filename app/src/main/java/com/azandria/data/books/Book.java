@@ -43,7 +43,7 @@ public class Book {
         LinkedList<Book> books = new LinkedList<>();
 
         try {
-            for (int i = 0; i < json.length(); i++) {
+            for (int i = 0; i < json.length() - 1; i++) {
                 JSONObject bookJson = json.getJSONObject(i);
                 Book book = Book.from(bookJson);
                 books.add(book);
