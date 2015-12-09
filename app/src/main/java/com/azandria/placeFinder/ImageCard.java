@@ -13,15 +13,15 @@ import com.azandria.datadude.R;
 /**
  * A custom implementation of a CardView that just includes a
  * full-width ImageView and a right-aligned TextView below it,
- * each of which can be set via custom attribues.
+ * each of which can be set via custom attributes.
  */
 public class ImageCard extends CardView {
 
     ///////////
     // region Member Variables
 
-    private int imageDrawableResource;
-    private String buttonText;
+    private int mImageDrawableResource;
+    private String mButtonText;
 
     // endregion
     ///////////
@@ -58,8 +58,8 @@ public class ImageCard extends CardView {
                     attrs, R.styleable.ImageCard, 0, 0);
 
             try {
-                imageDrawableResource = a.getResourceId(R.styleable.ImageCard_imageDrawableResource, 0);
-                buttonText = a.getString(R.styleable.ImageCard_buttonText);
+                mImageDrawableResource = a.getResourceId(R.styleable.ImageCard_imageDrawableResource, 0);
+                mButtonText = a.getString(R.styleable.ImageCard_buttonText);
             } finally {
                 a.recycle();
             }
@@ -77,14 +77,14 @@ public class ImageCard extends CardView {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        if (buttonText != null) {
+        if (mButtonText != null) {
             TextView button = (TextView) findViewById(R.id.view_image_card_Text);
-            button.setText(buttonText);
+            button.setText(mButtonText);
         }
 
-        if (imageDrawableResource != 0) {
+        if (mImageDrawableResource != 0) {
             ImageView image = (ImageView) findViewById(R.id.view_image_card_Image);
-            image.setImageResource(imageDrawableResource);
+            image.setImageResource(mImageDrawableResource);
         }
     }
 

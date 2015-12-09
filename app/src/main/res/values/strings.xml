@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">DataDude</string>
 
-    <string name="View.MapsCard.Button">Open In Maps</string>
+    <!-- General -->
+    <string name="OK">OK</string>
+
+    <!-- Snackbar Messages -->
+    <string name="Snackbar.NoMapsApp">Sorry, no maps app found.</string>
+
+    <!-- Buttons -->
+    <string name="View.MapsCard.Button">Open in Maps</string>
     <string name="View.HopperCard.Title">Check Flights in Hopper</string>
+    <string name="View.TripAdvisor.Button">Learn More</string>
+    <string name="View.WikipediaCard.Button">Open Wikipedia</string>
 </resources>

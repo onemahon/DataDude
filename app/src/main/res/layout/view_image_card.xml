@@ -14,12 +14,19 @@
 
         <View style="@style/Divider.Horizontal" />
 
-        <TextView
-            android:id="@+id/view_image_card_Text"
-            style="@style/Button.Flat"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            android:gravity="end|center_vertical" />
+            android:background="#fff">
+
+            <TextView
+                android:id="@+id/view_image_card_Text"
+                style="@style/Button.Flat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:clickable="false"
+                android:focusable="false" />
+        </FrameLayout>
     </LinearLayout>
 </merge>

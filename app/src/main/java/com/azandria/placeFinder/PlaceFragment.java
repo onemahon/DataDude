@@ -2,12 +2,14 @@ package com.azandria.placeFinder;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.azandria.data.places.IntentManager;
 import com.azandria.data.places.Place;
 import com.azandria.data.places.PlaceApiRequestMethod;
 import com.azandria.data.places.PlaceMemoryRequestMethod;
@@ -20,7 +22,6 @@ import com.azandria.datadude.utils.BasicDataRequestResponse;
 import com.azandria.datadude.utils.DataRequestBuilder;
 import com.azandria.datadude.utils.IDataRequestMethod;
 import com.azandria.datadude.utils.IDataRequestResponse;
-import com.azandria.placeFinder.cards.MapsCard;
 import com.raizlabs.coreutils.threading.ThreadingUtils;
 
 public class PlaceFragment extends Fragment {
@@ -152,12 +153,14 @@ public class PlaceFragment extends Fragment {
     }
 
     private void fillInLocalCardInfo() {
+        if (mPlace != null) {
+            mViewHolder.Toolbar.setTitle(mPlace.mName);
+        }
+
         // TODO update Maps link
         // TODO update Hopper Intent
         // (or, alternately, have those both just generated on click)
-        if (mViewHolder != null) {
-            mViewHolder.MapsCard.setTitle(mPlace.mName);
-        }
+
     }
 
     private void fillInWikipediaCard() {
@@ -174,12 +177,17 @@ public class PlaceFragment extends Fragment {
 
     private void addClickListeners() {
         if (mViewHolder != null) {
-            mViewHolder.WikipediaCard.setOnClickListener(new View.OnClickListener() {
+            mViewHolder.MapsCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    IntentManager.startMapIntent(mPlace, v.getContext(), v);
+
+
                     // TODO go to web view with wikipedia information
                 }
             });
+
+
         }
     }
 
@@ -193,16 +201,21 @@ public class PlaceFragment extends Fragment {
     private static class ViewHolder {
         private ViewGroup Container;
 
+        // TODO add to toolbar instead
+        private CollapsingToolbarLayout Toolbar;
+
         private View WikipediaCard;
-        private MapsCard MapsCard;
+        private View MapsCard;
         private View TripAdvisorCard;
         private View HopperCard;
 
         public ViewHolder(View view) {
             Container = (ViewGroup) view.findViewById(R.id.fragment_place_Container);
 
+            Toolbar = (CollapsingToolbarLayout) view.findViewById(R.id.fragment_place_Toolbar);
+
             WikipediaCard = view.findViewById(R.id.fragment_place_WikipediaCard);
-            MapsCard = (MapsCard) view.findViewById(R.id.fragment_place_MapsCard);
+            MapsCard = view.findViewById(R.id.fragment_place_MapsCard);
             TripAdvisorCard = view.findViewById(R.id.fragment_place_TripAdvisorCard);
             HopperCard = view.findViewById(R.id.fragment_place_HopperCard);
         }

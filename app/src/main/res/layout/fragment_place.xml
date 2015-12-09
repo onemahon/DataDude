@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/fragment_place_Container"
+    <include layout="@layout/places_toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:id="@+id/fragment_place_Name"
+        <LinearLayout
+            android:id="@+id/fragment_place_Container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/fragment_place_WikipediaCard"
-            style="@style/PlaceCard"
-            android:text="TO DO" />
+            <com.azandria.placeFinder.ImageCard
+                android:id="@+id/fragment_place_WikipediaCard"
+                style="@style/PlaceCard"
+                app:buttonText="@string/View.WikipediaCard.Button" />
 
-        <com.azandria.placeFinder.ImageCard
-            style="@style/PlaceCard"
-            card_view:buttonText="@string/View.MapsCard.Button"
-            card_view:imageDrawableResource="@drawable/card_image_map" />
+            <com.azandria.placeFinder.ImageCard
+                android:id="@+id/fragment_place_MapsCard"
+                style="@style/PlaceCard"
+                app:buttonText="@string/View.MapsCard.Button"
+                app:imageDrawableResource="@drawable/card_image_map" />
 
-        <!--<com.azandria.placeFinder.cards.MapsCard-->
-        <!--android:id="@+id/fragment_place_MapsCard"-->
-        <!--style="@style/PlaceCard" />-->
+            <com.azandria.placeFinder.ImageCard
+                android:id="@+id/fragment_place_TripAdvisorCard"
+                style="@style/PlaceCard"
+                app:buttonText="@string/View.TripAdvisor.Button" />
 
-        <TextView
-            android:id="@+id/fragment_place_TripAdvisorCard"
-            style="@style/PlaceCard"
-            android:text="TO DO" />
-
-        <com.azandria.placeFinder.cards.HopperCard
-            android:id="@+id/fragment_place_HopperCard"
-            style="@style/PlaceCard" />
-
-    </LinearLayout>
-</ScrollView>
+            <com.azandria.placeFinder.ImageCard
+                android:id="@+id/fragment_place_HopperCard"
+                style="@style/PlaceCard"
+                app:buttonText="@string/View.HopperCard.Title"
+                app:imageDrawableResource="@drawable/card_image_map" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

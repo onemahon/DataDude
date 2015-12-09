@@ -21,7 +21,11 @@ public class PlaceStubbedApiRequestMethod extends PlaceApiRequestMethod {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                String response = "[{'id':1, 'name':'Boston, MA'},{'id':2, 'name':'Jamaica'},{'id':3, 'name':'London, UK'},]";
+                String response =
+                        "[{'id':1,  'map_uri':'geo:42.3583855,-71.0621501?z=14.32', 'name':'Boston, MA'}," +
+                        "{'id':2,   'map_uri':'geo:42.3583855,-71.0621501?z=14.32', 'name':'Jamaica'}," +
+                        "{'id':3,   'map_uri':'geo:42.3583855,-71.0621501?z=14.32', 'name':'London, UK'}," +
+                        "{'id':4,   'map_uri':'geo:42.3583855,-71.0621501?z=14.32', 'name':'San Francisco, CA'}]";
                 JSONArray placeArray = null;
 
                 try {

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Theme -->
+    <color name="Primary">#077fff</color>
+    <color name="Primary.Dark">#06509f</color>
+
     <!-- Backgrounds -->
     <color name="Card.Background">#cecece</color>
 

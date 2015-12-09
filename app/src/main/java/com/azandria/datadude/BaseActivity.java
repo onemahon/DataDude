@@ -3,7 +3,6 @@ package com.azandria.datadude;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -60,7 +59,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("asdf", "onCreate started in parent");
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
 

@@ -1,5 +1,7 @@
 package com.azandria.data.places;
 
+import android.net.Uri;
+
 import com.azandria.datadude.utils.DataObjectManager;
 
 import org.json.JSONArray;
@@ -7,12 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * An object representing a particlar place in the world.
+ * An object representing a particular place in the world.
  */
 public class Place {
 
     public String mName;
-
+    public Uri mMapUri;
 
 
     public static Place from(final JSONObject json) {
@@ -23,6 +25,11 @@ public class Place {
                 Place place = new Place();
 
                 place.mName = json.optString("name");
+
+                String mapUri = json.optString("map_uri");
+                if (mapUri != null) {
+                    place.mMapUri = Uri.parse(mapUri);
+                }
 
                 return place;
             }
