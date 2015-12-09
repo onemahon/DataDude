@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return A resource ID
      */
     protected int getLayoutResource() {
-        return R.layout.activity_state_switchable;
+        return R.layout.activity_base;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return a layout resource element ID
      */
     protected int getRootFragmentLayoutId() {
-        return R.id.activity_state_switchable_FragmentHolder;
+        return R.id.activity_base_FragmentHolder;
     }
 
     // endregion

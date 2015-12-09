@@ -11,7 +11,6 @@ import android.widget.ViewFlipper;
 
 import com.azandria.boildroid.data.IDataRequestMethod;
 import com.azandria.boildroid.data.IDataRequestResponse;
-import com.raizlabs.coreutils.threading.ThreadingUtils;
 import com.whatswhere.R;
 
 public class StateFragment extends Fragment implements StateChanger {
@@ -111,7 +110,7 @@ public class StateFragment extends Fragment implements StateChanger {
 
     @Override
     public void showContent() {
-        ThreadingUtils.runOnUIThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mStatesViewHolder.ViewFlipper.setDisplayedChild(mStatesViewHolder.mContentIndex);
@@ -121,7 +120,7 @@ public class StateFragment extends Fragment implements StateChanger {
 
     @Override
     public void showLoading() {
-        ThreadingUtils.runOnUIThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mStatesViewHolder.ViewFlipper.setDisplayedChild(mStatesViewHolder.mLoadingIndex);
@@ -131,7 +130,7 @@ public class StateFragment extends Fragment implements StateChanger {
 
     @Override
     public void showEmpty() {
-        ThreadingUtils.runOnUIThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mStatesViewHolder.ViewFlipper.setDisplayedChild(mStatesViewHolder.mEmptyIndex);
