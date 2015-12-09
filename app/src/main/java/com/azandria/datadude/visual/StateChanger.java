@@ -1,7 +1,7 @@
-package com.azandria.boildroid.visual;
+package com.azandria.datadude.visual;
 
 
-import com.azandria.boildroid.data.IDataRequestMethod;
+import com.azandria.datadude.data.IDataRequestMethod;
 
 public interface StateChanger {
     void showContent();

@@ -1,10 +1,10 @@
-package com.azandria.boildroid.visual;
+package com.azandria.datadude.visual;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
-import com.whatswhere.R;
+import com.azandria.datadude.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 

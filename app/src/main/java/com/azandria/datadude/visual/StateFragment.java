@@ -1,4 +1,4 @@
-package com.azandria.boildroid.visual;
+package com.azandria.datadude.visual;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ViewFlipper;
 
-import com.azandria.boildroid.data.IDataRequestMethod;
-import com.azandria.boildroid.data.IDataRequestResponse;
-import com.whatswhere.R;
+import com.azandria.datadude.R;
+import com.azandria.datadude.data.IDataRequestMethod;
+import com.azandria.datadude.data.IDataRequestResponse;
 
 public class StateFragment extends Fragment implements StateChanger {
 

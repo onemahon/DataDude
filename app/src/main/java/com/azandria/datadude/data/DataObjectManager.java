@@ -1,4 +1,4 @@
-package com.azandria.boildroid.data;
+package com.azandria.datadude.data;
 
 import android.util.LruCache;
 

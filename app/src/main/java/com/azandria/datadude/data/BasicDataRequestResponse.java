@@ -1,4 +1,4 @@
-package com.azandria.boildroid.data;
+package com.azandria.datadude.data;
 
 public class BasicDataRequestResponse<DataType> implements IDataRequestResponse<DataType> {
 
