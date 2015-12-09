@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.azandria.datadude"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -34,4 +34,5 @@ dependencies {
 
     // Other third party libraries
     compile 'com.raizlabs:webservicemanager:1.0' // web requests
+    compile 'com.squareup.picasso:picasso:2.5.2' // image loading
 }

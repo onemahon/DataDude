@@ -18,18 +18,43 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="PlaceCard" parent="CardView">
-        <item name="cardBackgroundColor">@color/Card.Background</item>
-        <item name="cardCornerRadius">4dp</item>
+    <style name="ImageCard" parent="CardView">
+        <item name="cardBackgroundColor">#fff</item>
+        <item name="cardCornerRadius">2dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_margin">10dp</item>
     </style>
 
-    <style name="PlaceCardImage">
+    <style name="ImageCardMainImage">
         <item name="android:layout_height">130dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <!-- android:layout_gravity="bottom"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                -->
+    <style name="ImageCardTitle">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/Card.Title.TextColor</item>
+    </style>
+
+    <style name="ImageCardContent">
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:padding">8dp</item>
     </style>
 
     <style name="Button.Flat" parent="Base.Widget.AppCompat.Button.Borderless.Colored">

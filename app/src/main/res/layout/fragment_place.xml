@@ -19,25 +19,31 @@
 
             <com.azandria.placeFinder.ImageCard
                 android:id="@+id/fragment_place_WikipediaCard"
-                style="@style/PlaceCard"
-                app:buttonText="@string/View.WikipediaCard.Button" />
-
-            <com.azandria.placeFinder.ImageCard
-                android:id="@+id/fragment_place_MapsCard"
-                style="@style/PlaceCard"
-                app:buttonText="@string/View.MapsCard.Button"
-                app:imageDrawableResource="@drawable/card_image_map" />
+                style="@style/ImageCard"
+                app:buttonText="@string/View.WikipediaCard.Button"
+                app:imageDrawableResource="@drawable/card_image_wikipedia"
+                app:titleText="@string/View.WikipediaCard.Title" />
 
             <com.azandria.placeFinder.ImageCard
                 android:id="@+id/fragment_place_TripAdvisorCard"
-                style="@style/PlaceCard"
-                app:buttonText="@string/View.TripAdvisor.Button" />
+                style="@style/ImageCard"
+                app:buttonText="@string/View.TripAdvisor.Button"
+                app:imageDrawableResource="@drawable/card_image_tripadvisor"
+                app:titleText="@string/View.TripAdvisor.Title" />
+
+            <com.azandria.placeFinder.ImageCard
+                android:id="@+id/fragment_place_MapsCard"
+                style="@style/ImageCard"
+                app:buttonText="@string/View.MapsCard.Button"
+                app:imageDrawableResource="@drawable/card_image_map"
+                app:titleText="@string/View.MapsCard.Title" />
 
             <com.azandria.placeFinder.ImageCard
                 android:id="@+id/fragment_place_HopperCard"
-                style="@style/PlaceCard"
-                app:buttonText="@string/View.HopperCard.Title"
-                app:imageDrawableResource="@drawable/card_image_map" />
+                style="@style/ImageCard"
+                app:buttonText="@string/View.HopperCard.Button"
+                app:imageDrawableResource="@drawable/card_image_hopper"
+                app:titleText="@string/View.HopperCard.Title" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

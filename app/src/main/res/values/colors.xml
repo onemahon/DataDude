@@ -5,11 +5,12 @@
     <color name="Primary.Dark">#06509f</color>
 
     <!-- Backgrounds -->
-    <color name="Card.Background">#cecece</color>
+    <color name="Card.Title.Background">#fff</color>
 
     <!-- Dividers -->
-    <color name="Divider.Color">#cecece</color>
+    <color name="Divider.Color">#cccccc</color>
 
     <!-- Text Colors -->
     <color name="Button.TextColor">#077fff</color>
+    <color name="Card.Title.TextColor">#fff</color>
 </resources>

@@ -3,13 +3,22 @@
 
     <!-- General -->
     <string name="OK">OK</string>
+    <string name="Download">Download</string>
 
     <!-- Snackbar Messages -->
     <string name="Snackbar.NoMapsApp">Sorry, no maps app found.</string>
+    <string name="Snackbar.NoHopper">You need to install Hopper.</string>
 
-    <!-- Buttons -->
+    <!-- ImageCards -->
+    <string name="View.MapsCard.Title">Geography</string>
     <string name="View.MapsCard.Button">Open in Maps</string>
-    <string name="View.HopperCard.Title">Check Flights in Hopper</string>
-    <string name="View.TripAdvisor.Button">Learn More</string>
+
+    <string name="View.HopperCard.Title">Flights</string>
+    <string name="View.HopperCard.Button">Check Hopper</string>
+
+    <string name="View.TripAdvisor.Title">Travel Tips</string>
+    <string name="View.TripAdvisor.Button">Open TripAdvisor</string>
+
+    <string name="View.WikipediaCard.Title">General Info</string>
     <string name="View.WikipediaCard.Button">Open Wikipedia</string>
 </resources>

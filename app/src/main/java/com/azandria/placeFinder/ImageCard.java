@@ -3,6 +3,7 @@ package com.azandria.placeFinder;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -21,7 +22,10 @@ public class ImageCard extends CardView {
     // region Member Variables
 
     private int mImageDrawableResource;
+    private String mTitle;
     private String mButtonText;
+
+    private TextView mContentText;
 
     // endregion
     ///////////
@@ -48,10 +52,27 @@ public class ImageCard extends CardView {
     ///////////
 
     ///////////
+    // region Public Methods
+
+    public void setContent(String text) {
+        if (mContentText != null) {
+            mContentText.setText(text);
+
+            int visibility = (TextUtils.isEmpty(text)) ? GONE : VISIBLE;
+            mContentText.setVisibility(visibility);
+        }
+    }
+
+    // endregion
+    ///////////
+
+    ///////////
     // region Private Methods
 
     private void init(Context context, AttributeSet attrs) {
         LayoutInflater.from(context).inflate(R.layout.view_image_card, this);
+
+        mContentText = (TextView) findViewById(R.id.view_image_card_Content);
 
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(
@@ -59,6 +80,7 @@ public class ImageCard extends CardView {
 
             try {
                 mImageDrawableResource = a.getResourceId(R.styleable.ImageCard_imageDrawableResource, 0);
+                mTitle = a.getString(R.styleable.ImageCard_titleText);
                 mButtonText = a.getString(R.styleable.ImageCard_buttonText);
             } finally {
                 a.recycle();
@@ -85,6 +107,11 @@ public class ImageCard extends CardView {
         if (mImageDrawableResource != 0) {
             ImageView image = (ImageView) findViewById(R.id.view_image_card_Image);
             image.setImageResource(mImageDrawableResource);
+        }
+
+        if (mTitle != null) {
+            TextView title = (TextView) findViewById(R.id.view_image_card_Title);
+            title.setText(mTitle);
         }
     }
 

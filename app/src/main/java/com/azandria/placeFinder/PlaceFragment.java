@@ -7,22 +7,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.azandria.data.places.IntentManager;
 import com.azandria.data.places.Place;
-import com.azandria.data.places.PlaceApiRequestMethod;
 import com.azandria.data.places.PlaceMemoryRequestMethod;
-import com.azandria.data.places.placeInfo.TripAdvisorApiRequestMethod;
-import com.azandria.data.places.placeInfo.TripAdvisorInformation;
-import com.azandria.data.places.placeInfo.WikipediaApiRequestMethod;
-import com.azandria.data.places.placeInfo.WikipediaInformation;
+import com.azandria.data.places.PlaceStubbedApiRequestMethod;
 import com.azandria.datadude.R;
 import com.azandria.datadude.utils.BasicDataRequestResponse;
 import com.azandria.datadude.utils.DataRequestBuilder;
 import com.azandria.datadude.utils.IDataRequestMethod;
 import com.azandria.datadude.utils.IDataRequestResponse;
 import com.raizlabs.coreutils.threading.ThreadingUtils;
+import com.squareup.picasso.Picasso;
 
 public class PlaceFragment extends Fragment {
 
@@ -40,10 +38,7 @@ public class PlaceFragment extends Fragment {
     // region Member Variables
 
     private ViewHolder mViewHolder;
-
     private Place mPlace;
-    private WikipediaInformation mWikipediaInformation;
-    private TripAdvisorInformation mTripAdvisorInformation;
 
     // TEMP: just for testing.
     private int randomPlaceId;
@@ -59,40 +54,10 @@ public class PlaceFragment extends Fragment {
                 @Override
                 public void run() {
                     if (mPlace != null) {
-                        requestAndFillInCardInformation();
+                        updateCards();
                     } else {
                         Toast.makeText(getActivity(), "Sorry, no place found for ID " + randomPlaceId, Toast.LENGTH_SHORT).show();
                     }
-                }
-            });
-        }
-    };
-
-    private IDataRequestResponse<WikipediaInformation> mWikipediaResponseListener = new BasicDataRequestResponse<WikipediaInformation>() {
-        @Override
-        public void onCompleted(IDataRequestMethod method, WikipediaInformation wikipediaInformation) {
-            super.onCompleted(method, wikipediaInformation);
-            mWikipediaInformation = wikipediaInformation;
-
-            ThreadingUtils.runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    fillInWikipediaCard();
-                }
-            });
-        }
-    };
-
-    private IDataRequestResponse<TripAdvisorInformation> mTripadvisorResponseListener = new BasicDataRequestResponse<TripAdvisorInformation>() {
-        @Override
-        public void onCompleted(IDataRequestMethod method, TripAdvisorInformation tripAdvisorInformation) {
-            super.onCompleted(method, tripAdvisorInformation);
-            mTripAdvisorInformation = tripAdvisorInformation;
-
-            ThreadingUtils.runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    fillInTripAdvisorCard();
                 }
             });
         }
@@ -121,8 +86,8 @@ public class PlaceFragment extends Fragment {
         // TODO delegate this into a button (e.g. "refresh" or "try new place")
         new DataRequestBuilder<>(mPlaceResponseListener)
                 .addRequestMethod(new PlaceMemoryRequestMethod(randomPlaceId))
-                .addRequestMethod(new PlaceApiRequestMethod(randomPlaceId))
-//                .addRequestMethod(new PlaceStubbedApiRequestMethod(randomPlaceId))
+//                .addRequestMethod(new PlaceApiRequestMethod(randomPlaceId))
+                .addRequestMethod(new PlaceStubbedApiRequestMethod(randomPlaceId))
                 .execute();
 
         addClickListeners();
@@ -140,38 +105,14 @@ public class PlaceFragment extends Fragment {
     ///////////
     // region Private Methods
 
-    private void requestAndFillInCardInformation() {
-        fillInLocalCardInfo();
-
-        new DataRequestBuilder<>(mWikipediaResponseListener)
-                .addRequestMethod(new WikipediaApiRequestMethod(mPlace))
-                .execute();
-
-        new DataRequestBuilder<>(mTripadvisorResponseListener)
-                .addRequestMethod(new TripAdvisorApiRequestMethod(mPlace))
-                .execute();
-    }
-
-    private void fillInLocalCardInfo() {
+    private void updateCards() {
         if (mPlace != null) {
             mViewHolder.Toolbar.setTitle(mPlace.mName);
-        }
 
-        // TODO update Maps link
-        // TODO update Hopper Intent
-        // (or, alternately, have those both just generated on click)
+            Picasso.with(getContext()).load(mPlace.mImageUrl).into(mViewHolder.ToolbarImage);
 
-    }
-
-    private void fillInWikipediaCard() {
-        if (mViewHolder != null) {
-            // mViewHolder.WikipediaCard
-        }
-    }
-
-    private void fillInTripAdvisorCard() {
-        if (mViewHolder != null) {
-            // mViewHolder.TripAdvisorCard
+            mViewHolder.WikipediaCard.setContent(mPlace.mWikipediaContent);
+            mViewHolder.TripAdvisorCard.setContent(mPlace.mTripAdvisorContent);
         }
     }
 
@@ -181,13 +122,29 @@ public class PlaceFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     IntentManager.startMapIntent(mPlace, v.getContext(), v);
-
-
-                    // TODO go to web view with wikipedia information
                 }
             });
 
+            mViewHolder.HopperCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    IntentManager.startHopperIntent(v.getContext(), v);
+                }
+            });
 
+            mViewHolder.WikipediaCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    IntentManager.startUrlIntent(mPlace.mWikipediaUrl, v.getContext());
+                }
+            });
+
+            mViewHolder.TripAdvisorCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    IntentManager.startUrlIntent(mPlace.mTripAdvisorUrl, v.getContext());
+                }
+            });
         }
     }
 
@@ -203,21 +160,23 @@ public class PlaceFragment extends Fragment {
 
         // TODO add to toolbar instead
         private CollapsingToolbarLayout Toolbar;
+        private ImageView ToolbarImage;
 
-        private View WikipediaCard;
-        private View MapsCard;
-        private View TripAdvisorCard;
-        private View HopperCard;
+        private ImageCard WikipediaCard;
+        private ImageCard MapsCard;
+        private ImageCard TripAdvisorCard;
+        private ImageCard HopperCard;
 
         public ViewHolder(View view) {
             Container = (ViewGroup) view.findViewById(R.id.fragment_place_Container);
 
             Toolbar = (CollapsingToolbarLayout) view.findViewById(R.id.fragment_place_Toolbar);
+            ToolbarImage = (ImageView) view.findViewById(R.id.fragment_place_ToolbarImage);
 
-            WikipediaCard = view.findViewById(R.id.fragment_place_WikipediaCard);
-            MapsCard = view.findViewById(R.id.fragment_place_MapsCard);
-            TripAdvisorCard = view.findViewById(R.id.fragment_place_TripAdvisorCard);
-            HopperCard = view.findViewById(R.id.fragment_place_HopperCard);
+            WikipediaCard = (ImageCard) view.findViewById(R.id.fragment_place_WikipediaCard);
+            MapsCard = (ImageCard) view.findViewById(R.id.fragment_place_MapsCard);
+            TripAdvisorCard = (ImageCard) view.findViewById(R.id.fragment_place_TripAdvisorCard);
+            HopperCard = (ImageCard) view.findViewById(R.id.fragment_place_HopperCard);
         }
     }
 

@@ -14,8 +14,15 @@ import org.json.JSONObject;
 public class Place {
 
     public String mName;
+    public String mImageUrl;
+
     public Uri mMapUri;
 
+    public String mWikipediaUrl;
+    public String mWikipediaContent;
+
+    public String mTripAdvisorUrl;
+    public String mTripAdvisorContent;
 
     public static Place from(final JSONObject json) {
         // Check the cache, & allow it to create the object internally if it doesn't already exist
@@ -25,6 +32,13 @@ public class Place {
                 Place place = new Place();
 
                 place.mName = json.optString("name");
+                place.mImageUrl = json.optString("image_url");
+
+                place.mWikipediaContent = json.optString("wiki_content");
+                place.mWikipediaUrl = json.optString("wikipedia_url");
+
+                place.mTripAdvisorContent = json.optString("tripadvisor_content");
+                place.mTripAdvisorUrl = json.optString("tripadvisor_url");
 
                 String mapUri = json.optString("map_uri");
                 if (mapUri != null) {
