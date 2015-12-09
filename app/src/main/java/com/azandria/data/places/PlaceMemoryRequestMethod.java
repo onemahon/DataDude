@@ -26,7 +26,17 @@ public class PlaceMemoryRequestMethod implements IDataRequestMethod<Place> {
 
     @Override
     public void doRequest(DataRequestBuilder.RequestMethodListener<Place> listener, Collection<IDataRequestFilter> filters) {
-        Place place = PlaceManager.get().get(mKey);
+        // begin short-circuit
+        // This temporary change allows us to not find out in advance of the Place
+        // request what ID we're looking for. It has the side effect of there being
+        // some potential inconsistency - while the MemoryRequest could scramble
+        // the cached places and retrieve ID=3, the API request could scramble and
+        // retriev ID=5 (or any other). Beware.
+        Place place = PlaceManager.get().sample();
+        // end short-circuit
+
+        // Below line actually requests a specific Place object
+        // Place place = PlaceManager.get().get(mKey);
 
         if (place != null) {
             listener.onCompleted(place);

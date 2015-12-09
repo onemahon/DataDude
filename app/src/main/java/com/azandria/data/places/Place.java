@@ -13,6 +13,8 @@ import org.json.JSONObject;
  */
 public class Place {
 
+    public int mId;
+
     public String mName;
     public String mImageUrl;
 
@@ -30,6 +32,7 @@ public class Place {
             @Override
             public Place need() {
                 Place place = new Place();
+                place.mId = json.optInt("id");
 
                 place.mName = json.optString("name");
                 place.mImageUrl = json.optString("image_url");
@@ -55,12 +58,22 @@ public class Place {
 
         if (array != null) {
             try {
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject json = array.getJSONObject(i);
-                    if (json.optInt("id") == placeKey) {
-                        result = Place.from(json);
-                    }
-                }
+
+                // start short-circuit
+                // This temporary short-circuit is just to ensure we don't have to know the IDs
+                // of the requested Place objects in advance of requesting a single sample.
+                int sampleIndex = (int) (Math.random() * array.length() + 1);
+                JSONObject object = array.getJSONObject(sampleIndex);
+                result = Place.from(object);
+                // end short-circuit
+
+                // Below logic actually uses the KEY rather than the numeric index in the array to find a Place object.
+//                for (int i = 0; i < array.length(); i++) {
+//                    JSONObject json = array.getJSONObject(i);
+//                    if (json.optInt("id") == placeKey) {
+//                        result = Place.from(json);
+//                    }
+//                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

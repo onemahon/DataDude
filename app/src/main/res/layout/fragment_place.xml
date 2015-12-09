@@ -7,6 +7,7 @@
     <include layout="@layout/places_toolbar" />
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/fragment_place_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -15,7 +16,8 @@
             android:id="@+id/fragment_place_Container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="60dp">
 
             <com.azandria.placeFinder.ImageCard
                 android:id="@+id/fragment_place_WikipediaCard"
@@ -46,4 +48,12 @@
                 app:titleText="@string/View.HopperCard.Title" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_place_RefreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_plane" />
 </android.support.design.widget.CoordinatorLayout>

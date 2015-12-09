@@ -29,10 +29,15 @@ public class PlaceApiRequestMethod implements IDataRequestMethod<Place> {
             @Override
             public void onRequestComplete(WebServiceManager webServiceManager, ResultInfo<Place> resultInfo) {
                 if (resultInfo != null && resultInfo.isStatusOK()) {
-                    listener.onCompleted(resultInfo.getResult());
-                    PlaceManager.get().store(mId, resultInfo.getResult());
+                    Place result = resultInfo.getResult();
+                    listener.onCompleted(result);
+                    PlaceManager.get().store(result.mId, result);
                 } else {
-                    listener.onFailed(resultInfo.getResponseCode());
+                    if (resultInfo != null) {
+                        listener.onFailed(resultInfo.getResponseCode());
+                    } else {
+                        listener.onFailed(-1);
+                    }
                 }
             }
         });

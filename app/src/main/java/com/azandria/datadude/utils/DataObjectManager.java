@@ -4,8 +4,7 @@ import android.util.LruCache;
 
 public abstract class DataObjectManager<UniqueIdType, DataType> {
 
-    // TODO: check out how I usually implement this class, and port that to here.
-    private LruCache<UniqueIdType, DataType> mCache;
+    protected LruCache<UniqueIdType, DataType> mCache;
 
     protected DataObjectManager() {
         // Default: up to 100 items. To restrict by size, instead, use:

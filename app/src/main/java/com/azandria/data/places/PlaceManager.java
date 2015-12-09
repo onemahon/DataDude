@@ -18,4 +18,23 @@ public class PlaceManager extends DataObjectManager<Integer, Place> {
      */
     public static PlaceManager get() { return INSTANCE; }
 
+    /**
+     * A convenient method to return any random cached Place.
+     * @return A pseudo-random Place object.
+     */
+    public Place sample() {
+        int totalItems = mCache.size();
+        int sampleIndex = (int) (Math.random() * totalItems + 1);
+
+        int counter = 0;
+        for (Place place : mCache.snapshot().values()) {
+            if (counter == sampleIndex) {
+                return place;
+            }
+            counter++;
+        }
+
+        return null;
+    }
+
 }

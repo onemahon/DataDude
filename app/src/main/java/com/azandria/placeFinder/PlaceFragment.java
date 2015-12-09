@@ -8,12 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.azandria.data.places.IntentManager;
 import com.azandria.data.places.Place;
+import com.azandria.data.places.PlaceApiRequestMethod;
 import com.azandria.data.places.PlaceMemoryRequestMethod;
-import com.azandria.data.places.PlaceStubbedApiRequestMethod;
 import com.azandria.datadude.R;
 import com.azandria.datadude.utils.BasicDataRequestResponse;
 import com.azandria.datadude.utils.DataRequestBuilder;
@@ -40,9 +39,6 @@ public class PlaceFragment extends Fragment {
     private ViewHolder mViewHolder;
     private Place mPlace;
 
-    // TEMP: just for testing.
-    private int randomPlaceId;
-
     private IDataRequestResponse<Place> mPlaceResponseListener = new BasicDataRequestResponse<Place>() {
         @Override
         public void onCompleted(IDataRequestMethod method, Place place) {
@@ -55,8 +51,6 @@ public class PlaceFragment extends Fragment {
                 public void run() {
                     if (mPlace != null) {
                         updateCards();
-                    } else {
-                        Toast.makeText(getActivity(), "Sorry, no place found for ID " + randomPlaceId, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -81,15 +75,7 @@ public class PlaceFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        randomPlaceId = (int) (Math.random() * 4) + 1;  // TODO random item index (hard-coded, for testing)
-
-        // TODO delegate this into a button (e.g. "refresh" or "try new place")
-        new DataRequestBuilder<>(mPlaceResponseListener)
-                .addRequestMethod(new PlaceMemoryRequestMethod(randomPlaceId))
-//                .addRequestMethod(new PlaceApiRequestMethod(randomPlaceId))
-                .addRequestMethod(new PlaceStubbedApiRequestMethod(randomPlaceId))
-                .execute();
-
+        fetchNewPlace();
         addClickListeners();
     }
 
@@ -104,6 +90,19 @@ public class PlaceFragment extends Fragment {
 
     ///////////
     // region Private Methods
+
+    private void fetchNewPlace() {
+        // Note: this does *not* factor in dynamic lists of places. It assumes there are 6 IDs, numbered 1-6.
+        // In reality, the Place API would have an endpoint like /place/random that returns a fully-spec'ed
+        // pseudo-random Place object.
+        int randomPlaceId = (int) (Math.random() * 6) + 1;
+
+        new DataRequestBuilder<>(mPlaceResponseListener)
+                .addRequestMethod(new PlaceMemoryRequestMethod(randomPlaceId))
+                .addRequestMethod(new PlaceApiRequestMethod(randomPlaceId))
+//                .addRequestMethod(new PlaceStubbedApiRequestMethod(randomPlaceId))
+                .execute();
+    }
 
     private void updateCards() {
         if (mPlace != null) {
@@ -145,6 +144,13 @@ public class PlaceFragment extends Fragment {
                     IntentManager.startUrlIntent(mPlace.mTripAdvisorUrl, v.getContext());
                 }
             });
+
+            mViewHolder.RefreshButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fetchNewPlace();
+                }
+            });
         }
     }
 
@@ -167,6 +173,8 @@ public class PlaceFragment extends Fragment {
         private ImageCard TripAdvisorCard;
         private ImageCard HopperCard;
 
+        private View RefreshButton;
+
         public ViewHolder(View view) {
             Container = (ViewGroup) view.findViewById(R.id.fragment_place_Container);
 
@@ -177,6 +185,8 @@ public class PlaceFragment extends Fragment {
             MapsCard = (ImageCard) view.findViewById(R.id.fragment_place_MapsCard);
             TripAdvisorCard = (ImageCard) view.findViewById(R.id.fragment_place_TripAdvisorCard);
             HopperCard = (ImageCard) view.findViewById(R.id.fragment_place_HopperCard);
+
+            RefreshButton = view.findViewById(R.id.fragment_place_RefreshButton);
         }
     }
 
