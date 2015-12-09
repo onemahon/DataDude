@@ -19,28 +19,28 @@
             android:orientation="vertical"
             android:paddingBottom="60dp">
 
-            <com.azandria.placeFinder.ImageCard
+            <com.whatswhere.views.ImageCard
                 android:id="@+id/fragment_place_WikipediaCard"
                 style="@style/ImageCard"
                 app:buttonText="@string/View.WikipediaCard.Button"
                 app:imageDrawableResource="@drawable/card_image_wikipedia"
                 app:titleText="@string/View.WikipediaCard.Title" />
 
-            <com.azandria.placeFinder.ImageCard
+            <com.whatswhere.views.ImageCard
                 android:id="@+id/fragment_place_TripAdvisorCard"
                 style="@style/ImageCard"
                 app:buttonText="@string/View.TripAdvisor.Button"
                 app:imageDrawableResource="@drawable/card_image_tripadvisor"
                 app:titleText="@string/View.TripAdvisor.Title" />
 
-            <com.azandria.placeFinder.ImageCard
+            <com.whatswhere.views.ImageCard
                 android:id="@+id/fragment_place_MapsCard"
                 style="@style/ImageCard"
                 app:buttonText="@string/View.MapsCard.Button"
                 app:imageDrawableResource="@drawable/card_image_map"
                 app:titleText="@string/View.MapsCard.Title" />
 
-            <com.azandria.placeFinder.ImageCard
+            <com.whatswhere.views.ImageCard
                 android:id="@+id/fragment_place_HopperCard"
                 style="@style/ImageCard"
                 app:buttonText="@string/View.HopperCard.Button"

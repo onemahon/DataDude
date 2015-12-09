@@ -9,7 +9,7 @@ android {
     buildToolsVersion '23.0.1'
 
     defaultConfig {
-        applicationId "com.azandria.datadude"
+        applicationId "com.whatswhere"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
