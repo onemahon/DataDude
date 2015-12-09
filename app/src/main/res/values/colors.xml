@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Backgrounds -->
+    <color name="Card.Background">#cecece</color>
+
+    <!-- Dividers -->
+    <color name="Divider.Color">#cecece</color>
+
+    <!-- Text Colors -->
+    <color name="Button.TextColor">#077fff</color>
+</resources>

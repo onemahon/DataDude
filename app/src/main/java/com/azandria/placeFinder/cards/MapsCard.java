@@ -57,11 +57,8 @@ public class MapsCard extends CardView {
 
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.view_maps_card, this);
-
-        mTitle = (TextView) findViewById(R.id.view_maps_card_Title);
     }
 
     // endregion
     ///////////
-
 }

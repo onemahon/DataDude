@@ -18,24 +18,25 @@
         <TextView
             android:id="@+id/fragment_place_WikipediaCard"
             style="@style/PlaceCard"
-            android:layout_width="match_parent"
             android:text="TO DO" />
 
-        <com.azandria.placeFinder.cards.MapsCard
-            android:id="@+id/fragment_place_MapsCard"
+        <com.azandria.placeFinder.ImageCard
             style="@style/PlaceCard"
-            android:layout_width="match_parent" />
+            card_view:buttonText="@string/View.MapsCard.Button"
+            card_view:imageDrawableResource="@drawable/card_image_map" />
+
+        <!--<com.azandria.placeFinder.cards.MapsCard-->
+        <!--android:id="@+id/fragment_place_MapsCard"-->
+        <!--style="@style/PlaceCard" />-->
 
         <TextView
             android:id="@+id/fragment_place_TripAdvisorCard"
             style="@style/PlaceCard"
-            android:layout_width="match_parent"
             android:text="TO DO" />
 
         <com.azandria.placeFinder.cards.HopperCard
             android:id="@+id/fragment_place_HopperCard"
-            style="@style/PlaceCard"
-            android:layout_width="match_parent" />
+            style="@style/PlaceCard" />
 
     </LinearLayout>
 </ScrollView>

@@ -6,17 +6,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/view_maps_card_Icon"
-            style="@style/PlaceCardIcon"
-            android:src="@drawable/ic_airplane" />
+            android:id="@+id/view_image_card_Image"
+            style="@style/PlaceCardImage" />
+
+        <View style="@style/Divider.Horizontal" />
 
         <TextView
+            android:id="@+id/view_image_card_Text"
+            style="@style/Button.Flat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/View.HopperCard.Title" />
+            android:background="#fff"
+            android:gravity="end|center_vertical" />
     </LinearLayout>
 </merge>

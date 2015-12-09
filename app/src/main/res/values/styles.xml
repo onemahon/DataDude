@@ -7,21 +7,29 @@
     </style>
 
     <style name="PlaceCard" parent="CardView">
-        <item name="cardBackgroundColor">#cecece</item>
+        <item name="cardBackgroundColor">@color/Card.Background</item>
         <item name="cardCornerRadius">4dp</item>
         <item name="android:layout_height">130dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_margin">10dp</item>
     </style>
 
-    <style name="PlaceCardIcon">
-        <item name="android:background">@drawable/bg_icon_blue</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:layout_marginRight">20dp</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:layout_height">60dp</item>
-        <item name="android:layout_width">60dp</item>
-        <item name="android:scaleType">fitCenter</item>
+    <style name="PlaceCardImage">
+        <item name="android:layout_height">90dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
+    <style name="Button.Flat" parent="Base.Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/Button.TextColor</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:background">@color/Divider.Color</item>
+    </style>
+
+    <style name="Divider.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/Divider.Height</item>
+    </style>
 </resources>

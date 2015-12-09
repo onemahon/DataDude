@@ -34,7 +34,7 @@ public class HopperCard extends CardView {
     // region Private Methods
 
     private void init(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.view_hopper_card, this);
+        LayoutInflater.from(context).inflate(R.layout.view_image_card, this);
     }
 
     // endregion

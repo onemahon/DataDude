@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">DataDude</string>
 
-    <string name="View.MapsCard.Subtitle">Open In Maps</string>
+    <string name="View.MapsCard.Button">Open In Maps</string>
     <string name="View.HopperCard.Title">Check Flights in Hopper</string>
 </resources>
