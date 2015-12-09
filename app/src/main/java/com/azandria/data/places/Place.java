@@ -62,7 +62,7 @@ public class Place {
                 // start short-circuit
                 // This temporary short-circuit is just to ensure we don't have to know the IDs
                 // of the requested Place objects in advance of requesting a single sample.
-                int sampleIndex = (int) (Math.random() * array.length() + 1);
+                int sampleIndex = (int) (Math.random() * array.length());
                 JSONObject object = array.getJSONObject(sampleIndex);
                 result = Place.from(object);
                 // end short-circuit

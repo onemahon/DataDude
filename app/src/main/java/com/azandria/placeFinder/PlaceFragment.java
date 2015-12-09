@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,10 +93,16 @@ public class PlaceFragment extends Fragment {
     // region Private Methods
 
     private void fetchNewPlace() {
-        // Note: this does *not* factor in dynamic lists of places. It assumes there are 6 IDs, numbered 1-6.
-        // In reality, the Place API would have an endpoint like /place/random that returns a fully-spec'ed
-        // pseudo-random Place object.
-        int randomPlaceId = (int) (Math.random() * 6) + 1;
+        // This ID not currently used. There are very few cases for retrieving
+        // a random object in production code, but if there was a good reason
+        // for it, that should be the API's responsibility.
+        // On the other hand, this request would work quite well if you're trying
+        // to fetch a specific object based on an ID that you already have (pretty
+        // common use case - e.g. a "details" page for a listed item).
+        // Note: since -1 is not a valid ID, and will never have an object cached
+        // in memory, the PlaceMemoryRequestMethod will be effectively unused while
+        // this debugging setup exists.
+        int randomPlaceId = -1;
 
         new DataRequestBuilder<>(mPlaceResponseListener)
                 .addRequestMethod(new PlaceMemoryRequestMethod(randomPlaceId))
@@ -108,7 +115,9 @@ public class PlaceFragment extends Fragment {
         if (mPlace != null) {
             mViewHolder.Toolbar.setTitle(mPlace.mName);
 
-            Picasso.with(getContext()).load(mPlace.mImageUrl).into(mViewHolder.ToolbarImage);
+            if (!TextUtils.isEmpty(mPlace.mImageUrl)) {
+                Picasso.with(getContext()).load(mPlace.mImageUrl).into(mViewHolder.ToolbarImage);
+            }
 
             mViewHolder.WikipediaCard.setContent(mPlace.mWikipediaContent);
             mViewHolder.TripAdvisorCard.setContent(mPlace.mTripAdvisorContent);

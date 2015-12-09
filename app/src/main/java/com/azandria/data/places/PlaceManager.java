@@ -24,7 +24,7 @@ public class PlaceManager extends DataObjectManager<Integer, Place> {
      */
     public Place sample() {
         int totalItems = mCache.size();
-        int sampleIndex = (int) (Math.random() * totalItems + 1);
+        int sampleIndex = (int) (Math.random() * totalItems);
 
         int counter = 0;
         for (Place place : mCache.snapshot().values()) {
