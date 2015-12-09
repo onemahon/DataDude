@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.azandria.datadude.R;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     ///////////
     // region Constants
 
-    private final static String ROOT_FRAGMENT_TAG = "BaseActivity:ROOT_FRAGMENT_TAG";
+    private final static String ROOT_FRAGMENT_TAG = "SingleFragmentActivity:ROOT_FRAGMENT_TAG";
 
     // endregion
     ///////////
